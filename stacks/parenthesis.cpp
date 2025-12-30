@@ -58,13 +58,21 @@ void Stack::display(){
 int Stack::isBalanced(char *exp){
     int i;
     for(i=0; exp[i] != '\0';i++){
-        if(exp[i] =='('){
+        if(exp[i] =='(' || exp[i] == '{' || exp[i] == '['){
             push(exp[i]);
         }
-        else if(exp[i] ==')'){
+        else if(exp[i] == ')' || exp[i] == '}' || exp[i] == ']'){
             if(top == NULL)
                 return 0;
-            pop();
+
+            char x = top->data;
+
+            if(abs(exp[i] - x) == 1 || abs(exp[i] - x) == 2){
+                pop();
+            }
+            else{
+                return 0;
+            }
         }
     }
 
@@ -72,7 +80,7 @@ int Stack::isBalanced(char *exp){
 }
 
 int main(){
-    char exp[] = "((a+b)*(c-d))";
+    char exp[] = "{([a+b]*[c-d])}";
     Stack st;
     cout << st.isBalanced(exp) << endl;
 

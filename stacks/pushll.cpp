@@ -17,3 +17,5 @@ void push(int value){
         top = t;
     }
 }
+
+
